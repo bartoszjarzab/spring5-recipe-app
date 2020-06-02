@@ -4,14 +4,17 @@ import guru.springframework.domain.*;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -26,11 +29,11 @@ public class DataLoader implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
 
-        List<Recipe> recipes = getRecipes();
-        recipeRepository.saveAll(recipes);
-        System.out.println("Loaded recipes data...");
+        recipeRepository.saveAll(getRecipes());
+        log.debug("Recipe data loaded...");
         }
 
     private List<Recipe> getRecipes() {
@@ -145,6 +148,7 @@ public class DataLoader implements CommandLineRunner {
 
         //add to return list
         recipes.add(guacRecipe);
+        log.debug("Guacamole recipe added...");
 
         //Yummy Tacos
         Recipe tacosRecipe = new Recipe();
@@ -205,6 +209,7 @@ public class DataLoader implements CommandLineRunner {
         tacosRecipe.setSource("Simply Recipes");
 
         recipes.add(tacosRecipe);
+        log.debug("Tacos recipe added...");
         return recipes;
     }
 
