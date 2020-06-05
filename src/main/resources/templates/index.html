@@ -27,27 +27,35 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Description</th>
-                                <th>View</th>
-                                <th>Update</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
                                 <td>tasty goodness 1</td>
                                 <td>tasty description 1</td>
-                                <td><a href="#">View</a> </td>
-                                <td><a href="#">Update</a> </td>
+                                <td>
+                                    <a class="btn btn-primary" href="#">View</a>
+                                    <a class="btn btn-primary" href="#">Update</a>
+                                    <a class="btn btn-primary" href="#" onclick="confirm('Are you sure?')">Delete</a>
+                                </td>
                             </tr>
                             <tr th:remove="all">
                                 <td>tasty goodness 2</td>
                                 <td>tasty description 2</td>
-                                <td><a href="#">View</a> </td>
-                                <td><a href="#">Update</a> </td>
+                                <td>
+                                    <a class="btn btn-primary" href="#">View</a>
+                                    <a class="btn btn-primary" href="#">Update</a>
+                                    <a class="btn btn-primary" href="#" onclick="confirm('Are you sure?')">Delete</a>
+                                </td>
                             </tr>
                             <tr th:each="recipe : ${recipes}">
                                 <td th:text="${recipe.id}">tasty goodness 3</td>
                                 <td th:text="${recipe.description}">tasty description 3</td>
-                                <td><a href="#" th:href="@{'/recipe/'+${recipe.id}+'/show'}">View</a> </td>
-                                <td><a href="#" th:href="@{'/recipe/'+${recipe.id}+'/update'}">Update</a> </td>
+                                <td>
+                                    <a class="btn btn-primary" href="#" th:href="@{'/recipe/'+${recipe.id}+'/show'}">View</a>
+                                    <a class="btn btn-primary" href="#" th:href="@{'/recipe/'+${recipe.id}+'/update'}">Update</a>
+                                    <a class="btn btn-primary" href="#" th:href="@{'/recipe/'+${recipe.id}+'/delete'}" onclick="confirm('Are you sure?')">Delete</a>
+                                </td>
                             </tr>
                         </table>
                     </div>
