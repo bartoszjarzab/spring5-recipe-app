@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"
           th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
 
-    <title>List Ingredients</title>
+    <title>Ingredient</title>
 </head>
 <body>
 <div class="container-fluid" style="margin-top: 20px">
@@ -18,45 +18,44 @@
             <div class="card">
 
                 <div class="card-header">
-                    <h1 class="card-title">Ingredients</h1>
+                    <h1 class="card-title">Ingredient</h1>
                 </div>
                 <div class="card-body">
 
-                    <div class="table-responsive" th:if="${not #lists.isEmpty(recipe.ingredients)}">
+                    <div class="table-responsive">
                         <table class="table table-hover ">
                             <thead class="thead-inverse">
                             <tr>
                                 <th>ID</th>
                                 <th>Description</th>
-                                <th>Update</th>
-                                <th>Delete</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
-                                <td>123</td>
-                                <td>Tasty Goodnees 1</td>
-                                <td><a href="#">Update</a></td>
-                                <td><a href="#">Delete</a></td>
-                            </tr>
-                            <tr th:remove="all">
-                                <td>12333</td>
+                                <td>1</td>
                                 <td>Tasty Goodnees 2</td>
-                                <td><a href="#">Update</a></td>
-                                <td><a href="#">Delete</a></td>
+                                <td>
+                                    <a href="#">Update</a>
+                                    <a href="#">Delete</a>
+                                </td>
                             </tr>
-                            <tr th:each="ingredient : ${recipe.ingredients}">
+                            <tr>
                                 <td th:text="${ingredient.id}">334</td>
                                 <td th:text="${ingredient.amount} + ' ' + ${ingredient.uom.getDescription()} + ' ' + ${ingredient.description}">Tasty Goodnees 3</td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/update'}">Update</a></td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/delete'}">Delete</a></td>
+                                <td>
+                                <a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/update'}">Update</a>
+                                <a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/delete'}">Delete</a>
+                                </td>
                             </tr>
                         </table>
+                        <a href="#" th:href="@{'/recipe/' + ${ingredient.getRecipeId()} + '/ingredients'}">Back</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"
