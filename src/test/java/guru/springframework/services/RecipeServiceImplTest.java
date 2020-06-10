@@ -85,4 +85,13 @@ public class RecipeServiceImplTest {
 
         //should fail
     }
+
+    @Test(expected = NumberFormatException.class)
+    public void getRecipeStringAsId() throws Exception{
+        Optional<Recipe> recipeOptional = Optional.empty();
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        Recipe recipeReturned=recipeService.findById(Long.valueOf("2L"));
+
+        //should fail
+    }
 }
