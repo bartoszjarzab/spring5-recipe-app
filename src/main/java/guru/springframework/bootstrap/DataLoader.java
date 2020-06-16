@@ -6,6 +6,7 @@ import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @Slf4j
 @Component
+@Profile("default")
 public class DataLoader implements CommandLineRunner {
 
     private final CategoryRepository categoryRepository;
@@ -33,7 +35,7 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         recipeRepository.saveAll(getRecipes());
-        log.debug("Recipe data loaded...");
+        log.debug("Recipe data loaded into H2 db...");
         }
 
     private List<Recipe> getRecipes() {
