@@ -4,6 +4,7 @@ import guru.springframework.commands.RecipeCommand;
 import guru.springframework.services.ImageService;
 import guru.springframework.services.RecipeService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -14,7 +15,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -40,15 +40,15 @@ public class ImageControllerTest {
     public void getImageForm() throws Exception {
         //given
         RecipeCommand recipeCommand = new RecipeCommand();
-        recipeCommand.setId(3L);
+        recipeCommand.setId("3");
 
-        when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
+        when(recipeService.findCommandById(anyString())).thenReturn(recipeCommand);
 
         //when
         mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/image"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("recipe"));
-        verify(recipeService,times(1)).findCommandById(anyLong());
+        verify(recipeService,times(1)).findCommandById(anyString());
     }
     @Test
     public void handleImagePost() throws Exception {
@@ -59,12 +59,12 @@ public class ImageControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.multipart("/recipe/1/image").file(mockMultipartFile))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(header().string("Location","/recipe/1/show"));
-        verify(imageService,times(1)).saveImageFile(anyLong(),any());
+        verify(imageService,times(1)).saveImageFile(anyString(),any());
     }
     @Test
     public void renderImageFromDbTest() throws Exception{
         RecipeCommand recipeCommand = new RecipeCommand();
-        recipeCommand.setId(1L);
+        recipeCommand.setId("1");
 
         String s="quasi-imagefile";
         Byte[] byteObject = new Byte[s.getBytes().length];
@@ -75,7 +75,7 @@ public class ImageControllerTest {
         }
         recipeCommand.setImage(byteObject);
 
-        when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
+        when(recipeService.findCommandById(anyString())).thenReturn(recipeCommand);
 
         //when
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/recipeimage"))
@@ -86,6 +86,7 @@ public class ImageControllerTest {
         assertEquals(s.getBytes().length,responseBytes.length);
 
     }
+    @Ignore
     @Test
     public void getImageNumberFormatException() throws Exception {
 

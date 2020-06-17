@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class RecipeToRecipeCommandTest {
     RecipeToRecipeCommand converter;
 
-    public final Long ID=13L;
+    public final String ID="13";
     public final String DESCRIPTION = "description";
     public final Integer PREP_TIME = 10;
     public final Integer COOK_TIME = 12;
@@ -20,11 +20,11 @@ public class RecipeToRecipeCommandTest {
     public final String DIRECTIONS="directions";
     public final Difficulty DIFFICULTY=Difficulty.EASY;
     public final Byte[] IMAGE={1,0,1,1,1,0,1,0,1};
-    public static final Long CAT_ID_1 = 1L;
-    public static final Long CAT_ID_2 = 2L;
-    public static final Long INGRED_ID_1 = 3L;
-    public static final Long INGRED_ID_2 = 4L;
-    public static final Long NOTES_ID = 9L;
+    public static final String CAT_ID_1 = "1";
+    public static final String CAT_ID_2 = "2";
+    public static final String INGRED_ID_1 = "3";
+    public static final String INGRED_ID_2 = "4";
+    public static final String NOTES_ID = "5";
 
 
 

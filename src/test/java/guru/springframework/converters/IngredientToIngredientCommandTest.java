@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class IngredientToIngredientCommandTest {
     IngredientToIngredientCommand converter;
-    public final Long ID = 13L;
+    public final String ID = "13";
     public final BigDecimal AMOUNT = BigDecimal.valueOf(13);
     public final String DESCRIPTION = "description";
     public final UnitOfMeasure UOM = new UnitOfMeasure();
@@ -20,7 +20,7 @@ public class IngredientToIngredientCommandTest {
 
     @Before
     public void setUp() throws Exception {
-        UOM.setId(1L);
+        UOM.setId("1");
         UOM.setDescription("uom description");
         converter=new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
     }

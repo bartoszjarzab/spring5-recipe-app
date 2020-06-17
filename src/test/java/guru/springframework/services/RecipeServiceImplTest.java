@@ -6,6 +6,7 @@ import guru.springframework.domain.Recipe;
 import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.repositories.RecipeRepository;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -39,14 +40,14 @@ public class RecipeServiceImplTest {
 
     @Test
     public void getRecipeByIdTest(){
-        final Long ID=1L;
+        final String ID="1";
         Recipe recipe = new Recipe();
         recipe.setId(ID);
         Optional<Recipe> optionalRecipe = Optional.of(recipe);
-        when(recipeRepository.findById(anyLong())).thenReturn(optionalRecipe);
+        when(recipeRepository.findById(anyString())).thenReturn(optionalRecipe);
         Recipe returnedRecipe=recipeService.findById(ID);
         assertNotNull("Null recipe returned",returnedRecipe);
-        verify(recipeRepository,times(1)).findById(anyLong());
+        verify(recipeRepository,times(1)).findById(anyString());
         verify(recipeRepository,never()).findAll();
 
     }
@@ -68,29 +69,30 @@ public class RecipeServiceImplTest {
     @Test
     public void testDeleteById(){
         //given
-        Long idToDelete = Long.valueOf(2);
+        String idToDelete = "2'";
 
         //when
         recipeService.deleteById(idToDelete);
 
         //then
-        verify(recipeRepository,times(1)).deleteById(anyLong());
+        verify(recipeRepository,times(1)).deleteById(anyString());
     }
 
     @Test(expected = NotFoundException.class)
     public void getRecipeByIdNotFound() throws Exception{
         Optional<Recipe> recipeOptional = Optional.empty();
-        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
-        Recipe recipeReturned=recipeService.findById(1L);
+        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
+        Recipe recipeReturned=recipeService.findById("1");
 
         //should fail
     }
 
+    @Ignore
     @Test(expected = NumberFormatException.class)
     public void getRecipeStringAsId() throws Exception{
         Optional<Recipe> recipeOptional = Optional.empty();
-        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
-        Recipe recipeReturned=recipeService.findById(Long.valueOf("2L"));
+        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
+        Recipe recipeReturned=recipeService.findById("2L");
 
         //should fail
     }
