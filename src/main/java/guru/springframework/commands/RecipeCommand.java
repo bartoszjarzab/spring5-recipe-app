@@ -11,8 +11,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -46,6 +46,6 @@ public class RecipeCommand {
     private Difficulty difficulty;
     private Byte[] image;
     private NotesCommand notes;
-    private Set<CategoryCommand> categories = new HashSet<>();
-    private Set<IngredientCommand> ingredients = new HashSet<>();
+    private List<CategoryCommand> categories = new ArrayList<>();
+    private List<IngredientCommand> ingredients = new ArrayList<>();
 }
