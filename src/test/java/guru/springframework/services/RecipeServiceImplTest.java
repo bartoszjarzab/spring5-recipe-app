@@ -87,7 +87,7 @@ public class RecipeServiceImplTest {
         //should fail
     }
 
-    @Ignore
+    @Ignore // not needed anymore, Id is now a String
     @Test(expected = NumberFormatException.class)
     public void getRecipeStringAsId() throws Exception{
         Optional<Recipe> recipeOptional = Optional.empty();

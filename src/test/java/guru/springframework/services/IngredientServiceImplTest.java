@@ -42,7 +42,6 @@ public class IngredientServiceImplTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-
         ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand,ingredientCommandToIngredient,recipeRepository,unitOfMeasureRepository);
     }
 
@@ -51,7 +50,7 @@ public class IngredientServiceImplTest {
     }
 
     @Test
-    public void findByRecipeIdAndRecipeIdHappyPath() throws Exception {
+    public void findByRecipeIdAndIngredientIdHappyPath() throws Exception {
         //given
         Recipe recipe = new Recipe();
         recipe.setId("1");
@@ -89,9 +88,12 @@ public class IngredientServiceImplTest {
         command.setId("3");
         command.setRecipeId("2");
 
-        Optional<Recipe> recipeOptional = Optional.of(new Recipe());
+        Recipe recipe = new Recipe();
+        recipe.setId("2");
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
 
         Recipe savedRecipe = new Recipe();
+        savedRecipe.setId("2");
         savedRecipe.addIngredient(new Ingredient());
         savedRecipe.getIngredients().iterator().next().setId("3");
 
@@ -103,6 +105,7 @@ public class IngredientServiceImplTest {
         IngredientCommand savedCommand = ingredientService.saveOrUpdateIngredientCommand(command);
 
         //then
+        assertEquals("2",savedCommand.getRecipeId());
         assertEquals("3",savedCommand.getId());
         verify(recipeRepository,times(1)).findById(anyString());
         verify(recipeRepository,times(1)).save(any(Recipe.class));

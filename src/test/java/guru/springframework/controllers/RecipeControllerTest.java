@@ -120,7 +120,7 @@ public class RecipeControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(view().name("404error"));
     }
-    @Ignore
+    @Ignore // not needed anymore, Id is now a String
     @Test
     public void testGetRecipeStringAsId() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders.get("/recipe/asd/show"))

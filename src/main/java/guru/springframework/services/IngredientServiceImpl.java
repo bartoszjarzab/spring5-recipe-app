@@ -45,8 +45,9 @@ public class IngredientServiceImpl implements IngredientService {
         Optional<IngredientCommand> ingredientCommandOptional = recipe.getIngredients().stream()
                 .filter(ingredient -> ingredient.getId().equals(ingredientId))
                 .map(ingredient -> ingredientToIngredientCommand.convert(ingredient)).findFirst();
-
-        return ingredientCommandOptional.get();
+        IngredientCommand ingredientCommand = ingredientCommandOptional.get();
+        ingredientCommand.setRecipeId(recipeId);
+        return ingredientCommand;
     }
 
     @Override

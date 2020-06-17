@@ -86,7 +86,7 @@ public class ImageControllerTest {
         assertEquals(s.getBytes().length,responseBytes.length);
 
     }
-    @Ignore
+    @Ignore //not needed anymore, Id is now a String
     @Test
     public void getImageNumberFormatException() throws Exception {
 
