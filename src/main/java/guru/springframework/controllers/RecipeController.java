@@ -2,6 +2,7 @@ package guru.springframework.controllers;
 
 import guru.springframework.commands.RecipeCommand;
 import guru.springframework.exceptions.NotFoundException;
+import guru.springframework.services.CategoryService;
 import guru.springframework.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -20,12 +22,14 @@ import javax.validation.Valid;
 public class RecipeController {
     private static final String RECIPE_RECIPEFORM_URL="recipe/recipeform";
     private final RecipeService recipeService;
+    private final CategoryService categoryService;
 
 
     @Autowired
-    public RecipeController(RecipeService recipeService) {
+    public RecipeController(RecipeService recipeService,CategoryService categoryService) {
         log.debug("Inside recipe controller constructor...");
         this.recipeService = recipeService;
+        this.categoryService = categoryService;
     }
     @GetMapping({"/{id}/show"})
     public String getById(@PathVariable String id, Model model){
@@ -35,14 +39,17 @@ public class RecipeController {
     }
     @GetMapping({"/{id}/update"})
     public String updateRecipe(@PathVariable String id, Model model){
-
         model.addAttribute("recipe", recipeService.findCommandById(id));
+        model.addAttribute("allCategories",categoryService.listAllCategoryCommands());
         return RECIPE_RECIPEFORM_URL;
     }
     @GetMapping("/new")
 
     public String newRecipe(Model model){
-        model.addAttribute("recipe", new RecipeCommand());
+        RecipeCommand newRecipeCommand = new RecipeCommand();
+        newRecipeCommand.setId(UUID.randomUUID().toString());
+        model.addAttribute("allCategories",categoryService.listAllCategoryCommands());
+        model.addAttribute("recipe", newRecipeCommand);
         return RECIPE_RECIPEFORM_URL;
     }
     @PostMapping("")
@@ -54,7 +61,7 @@ public class RecipeController {
             );
             return RECIPE_RECIPEFORM_URL;
         }
-
+        //command.getCategories().forEach(categoryCommand -> categoryCommand.id);
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
         return "redirect:/recipe/"+savedCommand.getId()+"/show";
     }

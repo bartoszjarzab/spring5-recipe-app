@@ -41,18 +41,21 @@
                                     <label>Categories:</label>
                                 </div>
                                 <div class="col-md-9 form-group">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="checkbox" value=""/>
-                                            Cat 1
-                                        </label>
-                                    </div>
-                                    <div class="radio" th:remove="all">
-                                        <label>
-                                            <input type="checkbox" value=""/>
-                                            Cat 2
-                                        </label>
-                                    </div>
+                                    <ul style="list-style: none">
+                                        <li th:remove="all" >
+                                            <input type="checkbox" />
+                                            <label>Category 1</label>
+                                        </li>
+                                        <li th:remove="all">
+                                            <input type="checkbox" />
+                                            <label>Category 2</label>
+                                        </li>
+                                        <li th:each="category: ${allCategories}">
+                                            <input type="checkbox" th:field="*{categories}" th:value="${category}"/>
+                                            <label th:text="${category}">Category 3</label>
+<!--                                            <label th:for="${#ids.prev('categories')}" th:text="${category}">Category 3</label>-->
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                             <div class="row">
@@ -149,8 +152,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12 form-group" th:class="${#fields.hasErrors('directions')}
-                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-                                    <textarea class="form-control" rows="3" th:field="*{directions}"></textarea>
+                                ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
+                                    <textarea class="form-control" rows="10" th:field="*{directions}" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
                                     <ul th:if="${#fields.hasErrors('directions')}">
                                         <li th:each="err : ${#fields.errors('directions')}" th:text="${err}"/>
                                     </ul>
@@ -165,7 +168,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12 form-group">
-                                    <textarea class="form-control" rows="3" th:field="*{notes.recipeNotes}"></textarea>
+                                    <textarea class="form-control" rows="10" th:field="*{notes.recipeNotes}" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
                                 </div>
                             </div>
                         </div>
