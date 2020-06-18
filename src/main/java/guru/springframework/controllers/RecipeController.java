@@ -1,5 +1,6 @@
 package guru.springframework.controllers;
 
+import guru.springframework.commands.CategoryCommand;
 import guru.springframework.commands.RecipeCommand;
 import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.services.CategoryService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -34,7 +37,7 @@ public class RecipeController {
     @GetMapping({"/{id}/show"})
     public String getById(@PathVariable String id, Model model){
         log.debug("About to return index.html to webpage...");
-        model.addAttribute("recipe", recipeService.findById(id)); //TODO :should fix to findCommandById
+        model.addAttribute("recipe", recipeService.findCommandById(id));
         return "recipe/show";
     }
     @GetMapping({"/{id}/update"})
@@ -61,7 +64,16 @@ public class RecipeController {
             );
             return RECIPE_RECIPEFORM_URL;
         }
-        //command.getCategories().forEach(categoryCommand -> categoryCommand.id);
+////////////// BLOCK DUE TO SOME BUG REGARDING MONGODB NOT KEEPING ID's
+        List<CategoryCommand> tempCategories = new ArrayList<>();
+        command.getCategories().forEach(categoryCommand -> {
+            if(categoryCommand.getDescription()!=null){
+                tempCategories.add(categoryService.findByDescription(categoryCommand.getDescription()));
+            }
+        });
+        command.getCategories().clear();
+        command.setCategories(tempCategories);
+/////////////
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
         return "redirect:/recipe/"+savedCommand.getId()+"/show";
     }

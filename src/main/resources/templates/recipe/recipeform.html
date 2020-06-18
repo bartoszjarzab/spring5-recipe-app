@@ -41,7 +41,7 @@
                                     <label>Categories:</label>
                                 </div>
                                 <div class="col-md-9 form-group">
-                                    <ul style="list-style: none">
+                                    <ul style="list-style: none" >
                                         <li th:remove="all" >
                                             <input type="checkbox" />
                                             <label>Category 1</label>
@@ -50,10 +50,9 @@
                                             <input type="checkbox" />
                                             <label>Category 2</label>
                                         </li>
-                                        <li th:each="category: ${allCategories}">
-                                            <input type="checkbox" th:field="*{categories}" th:value="${category}"/>
-                                            <label th:text="${category}">Category 3</label>
-<!--                                            <label th:for="${#ids.prev('categories')}" th:text="${category}">Category 3</label>-->
+                                        <li th:each="category: ${allCategories}" >
+                                            <input type="checkbox"  th:value="${category}" th:field="*{categories}" />
+                                            <label th:id="${category.id}" th:text="${category}">Category 3</label>
                                         </li>
                                     </ul>
                                 </div>

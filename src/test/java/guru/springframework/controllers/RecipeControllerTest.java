@@ -1,7 +1,6 @@
 package guru.springframework.controllers;
 
 import guru.springframework.commands.RecipeCommand;
-import guru.springframework.domain.Recipe;
 import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.services.CategoryService;
 import guru.springframework.services.RecipeService;
@@ -42,11 +41,11 @@ public class RecipeControllerTest {
 
     @Test
     public void testGetRecipe() throws Exception {
-        Recipe recipe = new Recipe();
+        RecipeCommand recipe = new RecipeCommand();
         recipe.setId("1");
 
 
-        when(recipeService.findById(anyString())).thenReturn(recipe);
+        when(recipeService.findCommandById(anyString())).thenReturn(recipe);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/show"))
                 .andExpect(status().isOk())
@@ -118,7 +117,7 @@ public class RecipeControllerTest {
     @Test
     public void testGetRecipeNotFound() throws Exception{
 
-        when(recipeService.findById(anyString())).thenThrow(NotFoundException.class);
+        when(recipeService.findCommandById(anyString())).thenThrow(NotFoundException.class);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/recipe/10000/show"))
                 .andExpect(status().isNotFound())
