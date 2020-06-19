@@ -165,8 +165,8 @@ public class DataLoader implements CommandLineRunner {
         }
         Category americanCategory = americanCategoryOptional.get();
         Category mexicanCategory = mexicanCategoryOptional.get();
-        Category italianCategory = italianCategoryOptional.get();
-        Category fastfoodCategory = fastfoodCategoryOptional.get();
+        //Category italianCategory = italianCategoryOptional.get();
+        //Category fastfoodCategory = fastfoodCategoryOptional.get();
 
         //Yummy Guac
         Recipe guacRecipe = new Recipe();
@@ -209,8 +209,8 @@ public class DataLoader implements CommandLineRunner {
 
         guacRecipe.getCategories().add(americanCategory);
         guacRecipe.getCategories().add(mexicanCategory);
-        guacRecipe.getCategories().add(fastfoodCategory);
-        guacRecipe.getCategories().add(italianCategory);
+        //guacRecipe.getCategories().add(fastfoodCategory);
+        //guacRecipe.getCategories().add(italianCategory);
 
         guacRecipe.setUrl("http://www.simplyrecipes.com/recipes/perfect_guacamole/");
         guacRecipe.setServings(4);

@@ -47,7 +47,6 @@ public class RecipeController {
         return RECIPE_RECIPEFORM_URL;
     }
     @GetMapping("/new")
-
     public String newRecipe(Model model){
         RecipeCommand newRecipeCommand = new RecipeCommand();
         newRecipeCommand.setId(UUID.randomUUID().toString());

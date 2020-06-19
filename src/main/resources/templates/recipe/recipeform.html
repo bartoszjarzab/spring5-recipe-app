@@ -22,6 +22,8 @@
                         <p>Please correct errors below</p>
                     </div>
                     <div class="card">
+                        <a class="btn btn-primary" href="#"
+                           th:href="@{'/'}" role="button">Back</a>
                         <div class="card-header">
                             <h1 class="card-title">Edit Recipe Information</h1>
                         </div>
@@ -40,7 +42,7 @@
                                 <div class="col-md-3 form-group">
                                     <label>Categories:</label>
                                 </div>
-                                <div class="col-md-9 form-group">
+                                <div class="col-md-3 form-group">
                                     <ul style="list-style: none" >
                                         <li th:remove="all" >
                                             <input type="checkbox" />
@@ -55,6 +57,11 @@
                                             <label th:id="${category.id}" th:text="${category}">Category 3</label>
                                         </li>
                                     </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <img src="../../static/images/default.JPG" th:src="@{'/recipe/' + ${recipe.id} + '/recipeimage'}" width="200" height="200"/>
+                                    <a class="btn btn-primary" href="#"
+                                       th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change Image</a>
                                 </div>
                             </div>
                             <div class="row">

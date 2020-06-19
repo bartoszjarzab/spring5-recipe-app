@@ -64,7 +64,7 @@ public class IngredientController {
     @GetMapping("recipe/{recipeId}/ingredient/new")
     public String newIngredient(@PathVariable String recipeId,Model model){
         RecipeCommand recipeCommand = recipeService.findCommandById(recipeId);
-        //todo throw an exception if null
+        //todo throw an exception if null, like during creating a new recipe
         IngredientCommand ingredientCommand = new IngredientCommand();
         ingredientCommand.setRecipeId(recipeId);
         ingredientCommand.setUom(new UnitOfMeasureCommand());
