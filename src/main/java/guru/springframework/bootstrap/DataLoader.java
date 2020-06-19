@@ -7,9 +7,14 @@ import guru.springframework.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -210,7 +215,7 @@ public class DataLoader implements CommandLineRunner {
         guacRecipe.setUrl("http://www.simplyrecipes.com/recipes/perfect_guacamole/");
         guacRecipe.setServings(4);
         guacRecipe.setSource("Simply Recipes");
-
+        guacRecipe.setImage(getImage("guac.JPG"));
         //add to return list
         recipes.add(guacRecipe);
         log.debug("Guacamole recipe added...");
@@ -272,10 +277,30 @@ public class DataLoader implements CommandLineRunner {
         tacosRecipe.setUrl("http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
         tacosRecipe.setServings(4);
         tacosRecipe.setSource("Simply Recipes");
-
+        tacosRecipe.setImage(getImage("taco.JPG"));
         recipes.add(tacosRecipe);
         log.debug("Tacos recipe added...");
         return recipes;
+    }
+
+    private Byte[] getImage(String fileName){
+            Byte[] byteObject = null;
+            Resource resource = new ClassPathResource("static/images/"+fileName);
+            log.debug("Loading File:"+fileName);
+            try {
+                File file = resource.getFile();
+                byte[] bytes = Files.readAllBytes(file.toPath());
+                byteObject = new Byte[bytes.length];
+                for (int i=0; i<bytes.length;i++){
+                    byteObject[i]=bytes[i];
+                }
+            } catch (IOException e) {
+                //todo handle better
+                log.error("Error occurred",e);
+                e.printStackTrace();
+            }
+            log.debug("Loading success");
+            return byteObject;
     }
 
 }

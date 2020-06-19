@@ -28,7 +28,6 @@ public class ImageServiceImplTest {
     }
 
     @Test
-
     public void saveImageFile() throws Exception{
         //given
         String id="2";
